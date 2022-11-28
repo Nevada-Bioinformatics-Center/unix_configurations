@@ -1,0 +1,44 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+module load slurm 
+
+alias sq="squeue | grep hvasquez"
+alias sqinbre="squeue -p cpu-s1-inbre-0"
+alias sjob="scontrol show -d job"
+alias squota="mmlsquota -j assoc.inbre --block-size 1G pronghorn-0"
+alias slogin="srun --job-name \"InteractiveJob\" --ntasks-per-node=8 --mem=20G --time=24:00:00 --pty bash"
+alias slogin2="srun --job-name \"InteractiveJob\" --ntasks-per-node=8 --mem=20G --account=cpu-s1-inbre-0 --partition=cpu-s1-inbre-0 --time=24:00:00 --pty bash"
+alias cdinbre="cd /data/gpfs/assoc/inbre/projects"
+alias sftpweb='sftp hvasquezgross@biox.unr.edu'
+alias watchsq="watch \"squeue | grep hvasqu\""
+export masurcagit=/data/gpfs/home/hvasquezgross/isugif/masurca
+export PATH=$PATH:$masurcagit/wrappers
+#alias sqcpu="squeue -A dubcovskygrp | awk '{SUM+=\$8} END {print SUM}'"
+#alias sqhcpu="squeue -A dubcovskygrp | grep bigmemh | awk '{SUM+=\$8} END {print SUM}'"
+
+export PATH="/data/gpfs/home/hvasquezgross/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/data/gpfs/assoc/inbre/hansvg/home/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/data/gpfs/assoc/inbre/hansvg/home/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/data/gpfs/assoc/inbre/hansvg/home/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/data/gpfs/assoc/inbre/hansvg/home/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
